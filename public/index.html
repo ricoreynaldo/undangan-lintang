@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>The Wedding</title>
+  <meta name="theme-color" content="#0a0a0a" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="locked">
+
+  <!-- ============ COVER ============ -->
+  <section id="cover" class="cover">
+    <div class="cover-bg" data-photo="cover.photo"></div>
+    <div class="cover-shade"></div>
+    <div class="cover-card">
+      <p class="eyebrow light" data-text="brand"></p>
+      <span class="rule short light"></span>
+      <p class="cover-sub">The wedding of</p>
+      <h1 class="cover-names" data-names></h1>
+      <p class="eyebrow light wide" data-text="dateLabel"></p>
+      <div class="cover-guest">
+        <p class="eyebrow light">To</p>
+        <p class="guest-name" id="guestName"></p>
+      </div>
+      <button class="btn btn-light" id="openBtn" type="button">
+        Open Invitation <span aria-hidden="true">→</span>
+      </button>
+    </div>
+  </section>
+
+  <main id="main">
+
+    <!-- ============ HERO / SAVE THE DATE ============ -->
+    <section class="sec sec-cream hero">
+      <div class="wrap hero-grid">
+        <figure class="hero-photo reveal">
+          <img data-photo="hero.photo" alt="Foto pasangan" />
+          <figcaption class="eyebrow light" data-text="hero.caption"></figcaption>
+        </figure>
+        <div class="hero-text reveal">
+          <span class="rule"></span>
+          <p class="eyebrow">Save the date</p>
+          <h2 class="display" data-names="stack"></h2>
+          <p class="lead" data-text="hero.tagline"></p>
+          <p class="eyebrow ink wide" data-text="dateLabel"></p>
+          <div class="countdown" id="countdown">
+            <div><b data-cd="d">00</b><span>Days</span></div>
+            <div><b data-cd="h">00</b><span>Hours</span></div>
+            <div><b data-cd="m">00</b><span>Minutes</span></div>
+            <div><b data-cd="s">00</b><span>Seconds</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ COUPLE ============ -->
+    <section class="sec sec-dark">
+      <div class="wrap">
+        <header class="sec-head reveal">
+          <p class="eyebrow tan">The couple</p>
+          <h2 class="title">Two, becoming one.</h2>
+          <p class="sub">Dua kisah yang berbeda, kini menjadi satu awal yang sama.</p>
+        </header>
+        <div class="couple-grid">
+          <article class="person reveal">
+            <div class="person-photo"><img data-photo="couple.groom.photo" alt="Mempelai pria" /></div>
+            <div class="person-meta">
+              <div>
+                <p class="eyebrow tan">The groom</p>
+                <h3 class="person-name" data-text="couple.groom.name"></h3>
+              </div>
+              <p class="person-parents" data-text="couple.groom.parents"></p>
+            </div>
+          </article>
+          <article class="person reveal">
+            <div class="person-photo"><img data-photo="couple.bride.photo" alt="Mempelai wanita" /></div>
+            <div class="person-meta">
+              <div>
+                <p class="eyebrow tan">The bride</p>
+                <h3 class="person-name" data-text="couple.bride.name"></h3>
+              </div>
+              <p class="person-parents" data-text="couple.bride.parents"></p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STORY ============ -->
+    <section class="sec sec-cream">
+      <div class="wrap narrow-split">
+        <header class="sec-head reveal">
+          <p class="eyebrow">Our story</p>
+          <h2 class="title big">The moments that led us here.</h2>
+        </header>
+        <ol class="story" id="story"></ol>
+      </div>
+    </section>
+
+    <!-- ============ EVENTS ============ -->
+    <section class="sec sec-stone">
+      <div class="wrap">
+        <header class="sec-head reveal">
+          <p class="eyebrow">The day</p>
+          <h2 class="title big">Join the celebration.</h2>
+          <p class="sub">Merupakan suatu kehormatan bagi kami apabila Anda berkenan hadir di setiap momen berharga.</p>
+        </header>
+        <div class="events" id="events"></div>
+      </div>
+    </section>
+
+    <!-- ============ GALLERY ============ -->
+    <section class="sec sec-cream">
+      <div class="wrap">
+        <header class="sec-head split reveal">
+          <div>
+            <p class="eyebrow">The journal</p>
+            <h2 class="title big">Scenes from us.</h2>
+          </div>
+          <p class="eyebrow ink" id="frameCount"></p>
+        </header>
+        <div class="gallery" id="gallery"></div>
+      </div>
+    </section>
+
+    <!-- ============ RSVP + GUESTBOOK ============ -->
+    <section class="sec sec-stone center">
+      <div class="wrap slim">
+        <header class="sec-head center reveal">
+          <p class="eyebrow">Your reply</p>
+          <h2 class="title big">RSVP</h2>
+          <p class="sub">Kehadiran Anda lebih berarti dari yang bisa kami ungkapkan.</p>
+        </header>
+
+        <form class="rsvp reveal" id="rsvpForm" novalidate>
+          <label class="field">
+            <span>Nama</span>
+            <input name="name" id="rsvpName" maxlength="60" autocomplete="name" required />
+          </label>
+          <div class="field">
+            <span>Konfirmasi kehadiran</span>
+            <div class="choice">
+              <label><input type="radio" name="attendance" value="hadir" /><em>Hadir</em></label>
+              <label><input type="radio" name="attendance" value="tidak" /><em>Tidak Hadir</em></label>
+            </div>
+          </div>
+          <label class="field" id="guestsField">
+            <span>Jumlah tamu</span>
+            <select name="guests">
+              <option value="1">1 orang</option>
+              <option value="2">2 orang</option>
+              <option value="3">3 orang</option>
+              <option value="4">4 orang</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Ucapan & doa</span>
+            <textarea name="message" rows="4" maxlength="500" placeholder="Tulis ucapan untuk kedua mempelai…"></textarea>
+          </label>
+          <p class="form-msg" id="rsvpMsg" role="status"></p>
+          <button class="btn btn-dark" type="submit">Send Wishes</button>
+        </form>
+
+        <div class="guestbook reveal">
+          <div class="gb-head">
+            <p class="eyebrow">Guestbook</p>
+            <h3 class="title">Messages of Love</h3>
+            <p class="gb-stats" id="gbStats"></p>
+          </div>
+          <ul class="wishes" id="wishes"></ul>
+          <button class="btn btn-ghost" id="moreWishes" type="button" hidden>Lihat lebih banyak</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ GIFT ============ -->
+    <section class="sec sec-cream">
+      <div class="wrap">
+        <header class="sec-head reveal">
+          <p class="eyebrow">With love</p>
+          <h2 class="title big">A thoughtful gift.</h2>
+          <p class="sub">Kehadiran dan doa restu Anda adalah kado terindah bagi kami. Namun jika ingin berbagi tanda kasih, kami menyambutnya dengan penuh rasa syukur.</p>
+        </header>
+        <div class="gifts" id="gifts"></div>
+      </div>
+    </section>
+
+    <!-- ============ CLOSING ============ -->
+    <footer class="sec sec-black center closing">
+      <div class="wrap reveal">
+        <p class="eyebrow tan">Thank you</p>
+        <h2 class="display light" data-names></h2>
+        <p class="sub light" data-text="closing"></p>
+        <span class="rule short light"></span>
+        <p class="eyebrow light dim">Made with pride · HEAVEN</p>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Music toggle -->
+  <button class="music" id="musicBtn" type="button" aria-label="Putar / jeda musik" hidden>
+    <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg>
+    <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5h3v14H8zM13 5h3v14h-3z" fill="currentColor"/></svg>
+  </button>
+  <audio id="bgm" loop preload="none"></audio>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" hidden>
+    <button class="lb-close" type="button" aria-label="Tutup">×</button>
+    <button class="lb-nav prev" type="button" aria-label="Sebelumnya">‹</button>
+    <img alt="" />
+    <button class="lb-nav next" type="button" aria-label="Berikutnya">›</button>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+  <script type="module" src="js/db.js"></script>
+</body>
+</html>

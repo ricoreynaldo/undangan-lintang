@@ -1,0 +1,14 @@
+{
+  "name": "undangan1",
+  "version": "1.0.0",
+  "description": "Undangan pernikahan digital bergaya editorial (recreate template-005) — RSVP & guestbook di Firebase Firestore",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
