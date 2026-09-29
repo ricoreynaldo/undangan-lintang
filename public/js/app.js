@@ -64,6 +64,7 @@
     cover.classList.add('opened');
     document.body.classList.remove('locked');
     window.scrollTo(0, 0);
+    startColor();
     if (C.music) {
       musicBtn.hidden = false;
       audio.play().catch(() => {});
@@ -116,7 +117,7 @@
   const gal = $('#gallery');
   const shots = C.gallery || [];
   $('#frameCount').textContent = `${pad(shots.length)} Frames`;
-  gal.innerHTML = shots.map((_, i) => `<button type="button" class="reveal" data-i="${i}" aria-label="Buka foto ${i + 1}"><img alt="Galeri ${i + 1}" /></button>`).join('');
+  gal.innerHTML = shots.map((_, i) => `<button type="button" class="reveal" data-i="${i}" aria-label="Buka foto ${i + 1}"><img class="colorize" alt="Galeri ${i + 1}" /></button>`).join('');
   $$('img', gal).forEach((img, i) => setPhoto(img, shots[i]));
 
   const lb = $('#lightbox');
@@ -310,4 +311,35 @@
     });
   }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
   $$('.reveal').forEach((el) => io.observe(el));
+
+  // ---------- warna foto mengikuti scroll ----------
+  // Foto .colorize hitam-putih saat baru muncul dari bawah layar, makin berwarna
+  // seiring digulir, dan penuh ketika pusat foto mencapai ±55% tinggi layar.
+  // Digulir balik → pudar lagi. Nilai --gray dipakai di style.css.
+  const colorPhotos = $$('.colorize');
+  let colorQueued = false;
+  function paintColor() {
+    colorQueued = false;
+    const vh = window.innerHeight;
+    const grays = colorPhotos.map((img) => {
+      const r = img.getBoundingClientRect();
+      const p = Math.min(Math.max((vh - r.top) / (vh * 0.45 + r.height / 2), 0), 1);
+      return (1 - p * p * (3 - 2 * p)).toFixed(3); // smoothstep
+    });
+    colorPhotos.forEach((img, i) => {
+      if (img.style.getPropertyValue('--gray') !== grays[i]) img.style.setProperty('--gray', grays[i]);
+    });
+  }
+  function queueColor() {
+    if (!colorQueued) { colorQueued = true; requestAnimationFrame(paintColor); }
+  }
+  // dipanggil saat undangan dibuka (foto di balik cover tetap hitam-putih sampai saat itu)
+  function startColor() {
+    const root = document.documentElement;
+    root.classList.add('opening');
+    setTimeout(() => root.classList.remove('opening'), 2200);
+    queueColor();
+    addEventListener('scroll', queueColor, { passive: true });
+    addEventListener('resize', queueColor);
+  }
 })();
